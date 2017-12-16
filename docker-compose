@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  website:
+    build: ../drongo
+    ports:
+      - 8050:8050
+    restart: "on-failure"
+    environment:
+       VIRTUAL_HOST: drongocompany.com
+       VIRTUAL_PORT: 8050
+       TIMEOUT: 100
+       HTTP_PORT: 8050
+       STATS_PORT: 8051
+    volumes:
+      - ../drongo:/code
+    ports:
+      - "8050:8050"
+    container_name: drongo-demo
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
