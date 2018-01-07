@@ -9,6 +9,23 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
+  drongo-website:
+    build: ../drongo-website
+    ports:
+      - 8020:8020
+    restart: "on-failure"
+    environment:
+       VIRTUAL_HOST: demo.drongocompany.com
+       VIRTUAL_PORT: 8020
+       TIMEOUT: 100
+       HTTP_PORT: 8020
+       STATS_PORT: 8021
+    volumes:
+      - ../drongo:/code
+    ports:
+      - "8020:8020"
+    container_name: drongo-website
+
   website:
     build: ../drongo
     ports:
