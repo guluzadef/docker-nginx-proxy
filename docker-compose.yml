@@ -21,7 +21,7 @@ services:
        HTTP_PORT: 8020
        STATS_PORT: 8021
     volumes:
-      - ../drongo:/code
+      - ../drongo-website:/code
     ports:
       - "8020:8020"
     container_name: drongo-website
