@@ -8,6 +8,23 @@ services:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+  
+  malik-test:
+    build: ../malik
+    ports:
+      - 8035:8035
+    restart: "on-failure"
+    environment:
+       VIRTUAL_HOST: malik.drongocompany.com
+       VIRTUAL_PORT: 8035
+       TIMEOUT: 100
+       HTTP_PORT: 8035
+       STATS_PORT: 8036
+    volumes:
+      - ../malik:/code
+    ports:
+      - "8035:8035"
+    container_name: malik-test
 
   drongo-website:
     build: ../drongo-website
