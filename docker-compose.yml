@@ -9,41 +9,6 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
   
-  hikmet-test:
-    build: ../hikmet
-    ports:
-      - 8066:8066
-    restart: "on-failure"
-    environment:
-       VIRTUAL_HOST: hikmet.drongocompany.com
-       VIRTUAL_PORT: 8066
-       TIMEOUT: 100
-       HTTP_PORT: 8066
-       STATS_PORT: 8067
-    volumes:
-      - ../hikmet:/code
-    ports:
-      - "8066:8066"
-    container_name: hikmet-test
-
-
-  malik-test:
-    build: ../malik
-    ports:
-      - 8035:8035
-    restart: "on-failure"
-    environment:
-       VIRTUAL_HOST: malik.drongocompany.com
-       VIRTUAL_PORT: 8035
-       TIMEOUT: 100
-       HTTP_PORT: 8035
-       STATS_PORT: 8036
-    volumes:
-      - ../malik:/code
-    ports:
-      - "8035:8035"
-    container_name: malik-test
-
   drongo-website:
     build: ../drongo-website
     ports:
