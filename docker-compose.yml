@@ -14,6 +14,7 @@ services:
     ports:
       - "8032:8032"
     restart: "on-failure"
+    env_file: .env
     environment:
       VIRTUAL_HOST: shop.munisisaz.me
       VIRTUAL_PORT: 8032
