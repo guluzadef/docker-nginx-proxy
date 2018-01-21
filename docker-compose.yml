@@ -22,6 +22,10 @@ services:
       STATS_PORT: 8033
     volumes:
       - ../ecommerce-shopping:/code
+    links:
+      - postgres
+    depends_on:
+      - "postgres"
     container_name: ecommerce-shopping
     
   postgres:
