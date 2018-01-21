@@ -9,6 +9,22 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
   
+  shopping-ecommerce:
+    build: ../ecommerce-shopping
+    ports:
+      - "8032:8032"
+    restart: "on-failure"
+    environment:
+      VIRTUAL_HOST: shop.munisisaz.me
+      VIRTUAL_PORT: 8032
+      TIMEOUT: 100
+      HTTP_PORT: 8032
+      STATS_PORT: 8033
+    volumes:
+      - ../ecommerce-shopping:/code
+    container_name: ecommerce-shopping  
+
+
   drongo-website:
     build: ../drongo-website
     ports:
