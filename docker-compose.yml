@@ -39,7 +39,21 @@ services:
     env_file: .env
     environment:
       - LC_ALL=C.UTF-8  
-
+  
+  bakuemlak:
+    build: ../bakuemlak
+    restart: "on-failure"
+    environment:
+       VIRTUAL_HOST: bakuemlak.com
+       VIRTUAL_PORT: 8040
+       TIMEOUT: 100
+       HTTP_PORT: 8040
+       STATS_PORT: 8041
+    volumes:
+      - ../bakuemlak:/code
+    ports:
+      - "8040:8040"
+    container_name: bakuemlak
 
   drongo-website:
     build: ../drongo-website
