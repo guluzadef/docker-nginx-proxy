@@ -1,6 +1,7 @@
 version: "3"
 
 services:
+  # Base nginx configuration for all projects 
   nginx-proxy:
     image: jwilder/nginx-proxy
     container_name: nginx-proxy
@@ -9,89 +10,7 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./nginx.conf:/etc/nginx/nginx.conf
-
-  postgres:
-    container_name:  postgres-db
-    image:           postgres:9.6
-    ports:
-      - 5432:5432 # Bind host port 5432 to PostgreSQL port 5432
-    volumes:
-      - ./pgdb:/var/lib/postgresql/data
-    env_file: .env
-    environment:
-      - LC_ALL=C.UTF-8  
   
-  shopping-ecommerce:
-    build: ../ecommerce-shopping
-    ports:
-      - "8032:8032"
-    restart: "on-failure"
-    env_file: .env
-    environment:
-      VIRTUAL_HOST: shop.munisisaz.me
-      VIRTUAL_PORT: 8032
-      TIMEOUT: 100
-      HTTP_PORT: 8032
-      STATS_PORT: 8033
-    volumes:
-      - ../ecommerce-shopping:/code
-    links:
-      - postgres
-    depends_on:
-      - "postgres"
-    container_name: ecommerce-shopping
-    
-  
-  
-  # bakuemlak:
-  #   build: ../bakuemlak
-  #   restart: "on-failure"
-  #   environment:
-  #      VIRTUAL_HOST: bakuemlak.com
-  #      VIRTUAL_PORT: 8040
-  #      TIMEOUT: 100
-  #      HTTP_PORT: 8040
-  #      STATS_PORT: 8041
-  #   volumes:
-  #     - ../bakuemlak:/code
-  #   ports:
-  #     - "8040:8040"
-  #   container_name: bakuemlak
-
-  # drongo-website:
-  #   build: ../drongo-website
-  #   ports:
-  #     - 8020:8020
-  #   restart: "on-failure"
-  #   environment:
-  #      VIRTUAL_HOST: demo.drongocompany.com
-  #      VIRTUAL_PORT: 8020
-  #      TIMEOUT: 100
-  #      HTTP_PORT: 8020
-  #      STATS_PORT: 8021
-  #   volumes:
-  #     - ../drongo-website:/code
-  #   ports:
-  #     - "8020:8020"
-  #   container_name: drongo-website
-
-  # website:
-  #   build: ../drongo
-  #   ports:
-  #     - 8050:8050
-  #   restart: "on-failure"
-  #   environment:
-  #      VIRTUAL_HOST: drongocompany.com
-  #      VIRTUAL_PORT: 8050
-  #      TIMEOUT: 100
-  #      HTTP_PORT: 8050
-  #      STATS_PORT: 8051
-  #   volumes:
-  #     - ../drongo:/code
-  #   ports:
-  #     - "8050:8050"
-  #   container_name: drongo-demo
-
 networks:
   default:
     external:
