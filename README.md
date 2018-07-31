@@ -16,5 +16,5 @@ $ docker network create nginx-proxy
 
 And then run the following `docker-compose` command to get started.
 ```sh
-$ docker-compose up -d
+$ docker-compose up --build -d
 ```
